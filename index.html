@@ -1,173 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>To My Love, Fatma 💌</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Comic Sans MS', cursive;
-      background: linear-gradient(#ffe6f0, #fff0f5);
-      color: #5a0033;
-      overflow: hidden;
-    }
+.floating-date {
+  position: absolute;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ff3366;
+  animation: floatAround 6s infinite ease-in-out;
+}
 
-    #lockScreen {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      z-index: 10;
-    }
-
-    input, button {
-      padding: 10px;
-      font-size: 1rem;
-      margin: 10px;
-      border-radius: 10px;
-      border: 2px solid pink;
-      background: #ffe6f0;
-      cursor: pointer;
-    }
-
-    #content {
-      text-align: center;
-      padding: 2rem;
-      display: none;
-      position: relative;
-      z-index: 1;
-    }
-
-    .image {
-      width: 200px;
-      animation: float 4s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
-    .letter {
-      display: none;
-      background: #fff0f5;
-      padding: 20px;
-      margin: 20px auto;
-      border-radius: 12px;
-      max-width: 600px;
-      box-shadow: 0 0 10px #ff99cc;
-      text-align: left;
-    }
-
-    .btn-show {
-      background: #ff99cc;
-      color: white;
-      margin-top: 20px;
-    }
-
-    .heart {
-      position: absolute;
-      width: 15px;
-      height: 15px;
-      background: red;
-      transform: rotate(45deg);
-      animation: rise 5s linear;
-    }
-
-    .heart::before, .heart::after {
-      content: '';
-      position: absolute;
-      width: 15px;
-      height: 15px;
-      background: red;
-      border-radius: 50%;
-    }
-
-    .heart::before {
-      top: -7.5px;
-      left: 0;
-    }
-
-    .heart::after {
-      left: -7.5px;
-      top: 0;
-    }
-
-    @keyframes rise {
-      0% { bottom: 0; opacity: 1; }
-      100% { bottom: 100vh; opacity: 0; }
-    }
-  </style>
-</head>
-<body>
-
-<!-- Lock screen -->
-<div id="lockScreen">
-  <h2>Enter the secret password 💖</h2>
-  <input type="password" id="pass" placeholder="Enter password">
-  <button onclick="unlock()">Unlock</button>
-</div>
-
-<!-- Main content -->
-<div id="content">
-  <img class="image" src="https://cdn-icons-png.flaticon.com/512/7662/7662650.png" alt="Cute tomato">
-  <h1>To My Love, Fatma 🍅💕</h1>
-  <p>This little tomato brought you a letter filled with love...</p>
-  <button class="btn-show" onclick="showLetter()">Read My Love Letter</button>
-
-  <div class="letter" id="loveLetter">
-    <p>
-      My dearest Fatma,<br><br>
-      Since you entered my life, every day has become more beautiful. Your kindness, smile, and heart fill me with joy.  
-      I cherish you more than words can say.<br><br>
-      I promise to always be by your side, to support you, to grow with you, and to love you endlessly.  
-      You are my sunshine, my soulmate, my everything.<br><br>
-      Forever yours,<br>
-      <strong>Youssef M. Krashed 💘</strong>
-    </p>
-  </div>
-</div>
-
-<!-- Floating hearts script -->
-<script>
-  function unlock() {
-    const p = document.getElementById("pass").value;
-    if (p === "12102005") {
-      document.getElementById("lockScreen").style.display = "none";
-      document.getElementById("content").style.display = "block";
-      startHearts();
-    } else {
-      alert("Wrong password 💔");
-    }
+@keyframes floatAround {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 1;
   }
-
-  function showLetter() {
-    document.getElementById("loveLetter").style.display = "block";
+  25% {
+    transform: translate(30px, -40px) rotate(5deg);
   }
-
-  function createHeart() {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.bottom = 0;
-    heart.style.animationDuration = (2 + Math.random() * 3) + "s";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 5000);
+  50% {
+    transform: translate(-40px, 20px) rotate(-5deg);
   }
-
-  function startHearts() {
-    setInterval(createHeart, 300);
+  75% {
+    transform: translate(20px, 40px) rotate(3deg);
   }
-</script>
-
-<!-- Background music -->
-<audio autoplay loop>
-  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mp3">
-</audio>
-
-</body>
-</html>
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 1;
+  }
+}
