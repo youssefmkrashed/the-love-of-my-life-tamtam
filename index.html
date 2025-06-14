@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>To My Love, Fatma 💌</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Comic Sans MS', cursive;
+      background: linear-gradient(#ffe6f0, #fff0f5);
+      color: #5a0033;
+      overflow: hidden;
+    }
+    #lockScreen, #content {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    #lockScreen {
+      position: fixed; width: 100%; height: 100%; background: white; z-index: 10;
+    }
+    input, button {
+      padding: 10px; margin: 10px; border-radius: 10px;
+      border: 2px solid pink; font-size: 1rem;
+    }
+    button { background: pink; cursor: pointer; }
+    #content { display: none; padding: 2rem; text-align: center; }
+    .image {
+      width: 200px; animation: float 4s ease-in-out infinite;
+    }
+    .letter {
+      display: none; background: #fff0f5; padding: 20px; border-radius: 12px;
+      box-shadow: 0 0 10px #ff99cc; max-width: 600px; margin: 20px auto;
+    }
+    .heart {
+      position: absolute; width: 15px; height: 15px; background: red;
+      transform: rotate(45deg); animation: rise 5s linear;
+    }
+    .heart::before, .heart::after {
+      content: ''; position: absolute; background: red; border-radius: 50%;
+      width: 15px; height: 15px;
+    }
+    .heart::before { top: -7.5px; left: 0; }
+    .heart::after { left: -7.5px; top: 0; }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    @keyframes rise { 0% { bottom: 0; opacity: 1; } 100% { bottom: 100vh; opacity: 0; } }
+  </style>
+</head>
+<body>
+
+<div id="lockScreen">
+  <h2>Enter the secret password 💖</h2>
+  <input type="password" id="pass" placeholder="Enter password">
+  <button onclick="unlock()">Unlock</button>
+</div>
+
+<div id="content">
+  <img class="image" src="https://cdn.pixabay.com/photo/2023/04/30/16/34/hippopotamus-7960230_1280.png" alt="Hippo with letter" />
+  <h1>To My Love, Fatma 💕</h1>
+  <p>This little hippo traveled far to deliver something from my heart to yours...</p>
+  <button onclick="showLetter()" style="background:#ff99cc; color:white;">Read My Love Letter</button>
+
+  <div class="letter" id="loveLetter">
+    <p>
+      My dearest Fatma,<br><br>
+      From the moment you came into my life, everything changed.  
+      Your laughter, your light, your love—each fills my days with warmth and meaning.  
+      I thank the universe every day for giving me you.<br><br>
+      Through every high and every low, I promise to stand beside you,  
+      to hold your hand, to cheer you on, and to love you unconditionally.  
+      You are my heart, my peace, my everything.<br><br>
+      Forever yours,<br>
+      <strong>Youssef M. Krashed 💘</strong>
+    </p>
+  </div>
+
+  <!-- Fatma's Picture -->
+  <div style="margin-top: 30px; text-align: center;">
+    <img src="fatma.jpg" alt="My beautiful Fatma 💖"
+      style="width: 280px; border-radius: 16px; box-shadow: 0 0 15px #ff99cc;
+             transition: transform 0.3s ease;"
+      onmouseover="this.style.transform='scale(1.05)'"
+      onmouseout="this.style.transform='scale(1)'"
+    />
+    <p style="margin-top: 10px; font-style: italic; color: #e75480;">
+      This is the smile I’d choose in every lifetime. 💕
+    </p>
+  </div>
+</div>
+
+<script>
+  function unlock() {
+    const p = document.getElementById("pass").value;
+    if (p === "12102005") {
+      document.getElementById("lockScreen").style.display = "none";
+      document.getElementById("content").style.display = "block";
+      startHearts();
+    } else {
+      alert("Wrong password 💔");
+    }
+  }
+
+  function showLetter() {
+    document.getElementById("loveLetter").style.display = "block";
+  }
+
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.bottom = 0;
+    heart.style.animationDuration = (2 + Math.random() * 3) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
+  }
+
+  function startHearts() {
+    setInterval(createHeart, 300);
+  }
+</script>
+
+<audio autoplay loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mp3">
+</audio>
+
+</body>
+</html>
