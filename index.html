@@ -24,20 +24,16 @@
       z-index: 10;
     }
 
-    input {
+    input, button {
       padding: 10px;
       font-size: 1rem;
       margin: 10px;
-      border: 2px solid pink;
       border-radius: 10px;
+      border: 2px solid pink;
     }
 
     button {
-      padding: 10px 20px;
-      font-size: 1rem;
       background: pink;
-      border: none;
-      border-radius: 10px;
       cursor: pointer;
     }
 
@@ -47,16 +43,6 @@
       display: none;
       position: relative;
       z-index: 1;
-    }
-
-    .image {
-      width: 200px;
-      animation: float 4s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
     }
 
     .letter {
@@ -76,38 +62,16 @@
       margin-top: 20px;
     }
 
-    .heart {
+    .floating-symbol {
       position: absolute;
-      width: 15px;
-      height: 15px;
-      background: red;
-      transform: rotate(45deg);
-      animation: rise 5s linear;
-    }
-
-    .heart::before,
-    .heart::after {
-      content: '';
-      position: absolute;
-      width: 15px;
-      height: 15px;
-      background: red;
-      border-radius: 50%;
-    }
-
-    .heart::before {
-      top: -7.5px;
-      left: 0;
-    }
-
-    .heart::after {
-      left: -7.5px;
-      top: 0;
+      font-size: 2rem;
+      animation: rise 6s linear infinite;
+      pointer-events: none;
     }
 
     @keyframes rise {
-      0% { bottom: 0; opacity: 1; }
-      100% { bottom: 100vh; opacity: 0; }
+      0% { bottom: 0; opacity: 1; transform: translateX(0); }
+      100% { bottom: 100vh; opacity: 0; transform: translateX(50px); }
     }
 
     .floating-date {
@@ -139,9 +103,8 @@
 
 <!-- Main content -->
 <div id="content">
-  <img class="image" src="https://cdn.pixabay.com/photo/2023/04/30/16/34/hippopotamus-7960230_1280.png" alt="Hippo carrying a letter" />
   <h1>To My Love, Fatma 💕</h1>
-  <p>This little hippo traveled far to deliver something from my heart to yours...</p>
+  <p>This little tomato and a thousand hearts are here to deliver my love...</p>
   <button class="btn-show" onclick="showLetter()">Read My Love Letter</button>
 
   <div class="letter" id="loveLetter">
@@ -159,15 +122,15 @@
   </div>
 </div>
 
-<!-- Floating hearts and special dates script -->
+<!-- Scripts for animations -->
 <script>
   function unlock() {
     const p = document.getElementById("pass").value;
     if (p === "12102005") {
       document.getElementById("lockScreen").style.display = "none";
       document.getElementById("content").style.display = "block";
-      startHearts();
-      createFloatingDates();
+      startFloating();
+      showDates();
     } else {
       alert("Wrong password 💔");
     }
@@ -177,25 +140,21 @@
     document.getElementById("loveLetter").style.display = "block";
   }
 
-  function createHeart() {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.bottom = 0;
-    heart.style.animationDuration = (2 + Math.random() * 3) + "s";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 5000);
+  function startFloating() {
+    setInterval(() => {
+      const el = document.createElement("div");
+      el.className = "floating-symbol";
+      el.style.left = Math.random() * 100 + "vw";
+      el.style.bottom = "0px";
+      el.innerText = Math.random() > 0.5 ? "🍅" : "❤️";
+      el.style.animationDuration = (3 + Math.random() * 3) + "s";
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 6000);
+    }, 300);
   }
 
-  function startHearts() {
-    setInterval(createHeart, 300);
-  }
-
-  function createFloatingDates() {
-    const dates = [
-      "12-10-2005", "3-5-2025", "17-5-2025", "21-5-2025", "22-5-2025"
-    ];
-
+  function showDates() {
+    const dates = ["12-10-2005", "3-5-2025", "17-5-2025", "21-5-2025", "22-5-2025"];
     dates.forEach(date => {
       const el = document.createElement("div");
       el.className = "floating-date";
