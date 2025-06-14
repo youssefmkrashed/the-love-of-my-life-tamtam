@@ -11,81 +11,128 @@
       color: #5a0033;
       overflow: hidden;
     }
-    #lockScreen, #content {
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-    }
+
     #lockScreen {
-      position: fixed; width: 100%; height: 100%; background: white; z-index: 10;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      z-index: 10;
     }
+
     input, button {
-      padding: 10px; margin: 10px; border-radius: 10px;
-      border: 2px solid pink; font-size: 1rem;
+      padding: 10px;
+      font-size: 1rem;
+      margin: 10px;
+      border-radius: 10px;
+      border: 2px solid pink;
+      background: #ffe6f0;
+      cursor: pointer;
     }
-    button { background: pink; cursor: pointer; }
-    #content { display: none; padding: 2rem; text-align: center; }
+
+    #content {
+      text-align: center;
+      padding: 2rem;
+      display: none;
+      position: relative;
+      z-index: 1;
+    }
+
     .image {
-      width: 200px; animation: float 4s ease-in-out infinite;
+      width: 200px;
+      animation: float 4s ease-in-out infinite;
     }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
     .letter {
-      display: none; background: #fff0f5; padding: 20px; border-radius: 12px;
-      box-shadow: 0 0 10px #ff99cc; max-width: 600px; margin: 20px auto;
+      display: none;
+      background: #fff0f5;
+      padding: 20px;
+      margin: 20px auto;
+      border-radius: 12px;
+      max-width: 600px;
+      box-shadow: 0 0 10px #ff99cc;
+      text-align: left;
     }
+
+    .btn-show {
+      background: #ff99cc;
+      color: white;
+      margin-top: 20px;
+    }
+
     .heart {
-      position: absolute; width: 15px; height: 15px; background: red;
-      transform: rotate(45deg); animation: rise 5s linear;
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background: red;
+      transform: rotate(45deg);
+      animation: rise 5s linear;
     }
+
     .heart::before, .heart::after {
-      content: ''; position: absolute; background: red; border-radius: 50%;
-      width: 15px; height: 15px;
+      content: '';
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background: red;
+      border-radius: 50%;
     }
-    .heart::before { top: -7.5px; left: 0; }
-    .heart::after { left: -7.5px; top: 0; }
-    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-    @keyframes rise { 0% { bottom: 0; opacity: 1; } 100% { bottom: 100vh; opacity: 0; } }
+
+    .heart::before {
+      top: -7.5px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -7.5px;
+      top: 0;
+    }
+
+    @keyframes rise {
+      0% { bottom: 0; opacity: 1; }
+      100% { bottom: 100vh; opacity: 0; }
+    }
   </style>
 </head>
 <body>
 
+<!-- Lock screen -->
 <div id="lockScreen">
   <h2>Enter the secret password 💖</h2>
   <input type="password" id="pass" placeholder="Enter password">
   <button onclick="unlock()">Unlock</button>
 </div>
 
+<!-- Main content -->
 <div id="content">
-  <img class="image" src="https://cdn.pixabay.com/photo/2023/04/30/16/34/hippopotamus-7960230_1280.png" alt="Hippo with letter" />
-  <h1>To My Love, Fatma 💕</h1>
-  <p>This little hippo traveled far to deliver something from my heart to yours...</p>
-  <button onclick="showLetter()" style="background:#ff99cc; color:white;">Read My Love Letter</button>
+  <img class="image" src="https://cdn-icons-png.flaticon.com/512/7662/7662650.png" alt="Cute tomato">
+  <h1>To My Love, Fatma 🍅💕</h1>
+  <p>This little tomato brought you a letter filled with love...</p>
+  <button class="btn-show" onclick="showLetter()">Read My Love Letter</button>
 
   <div class="letter" id="loveLetter">
     <p>
       My dearest Fatma,<br><br>
-      From the moment you came into my life, everything changed.  
-      Your laughter, your light, your love—each fills my days with warmth and meaning.  
-      I thank the universe every day for giving me you.<br><br>
-      Through every high and every low, I promise to stand beside you,  
-      to hold your hand, to cheer you on, and to love you unconditionally.  
-      You are my heart, my peace, my everything.<br><br>
+      Since you entered my life, every day has become more beautiful. Your kindness, smile, and heart fill me with joy.  
+      I cherish you more than words can say.<br><br>
+      I promise to always be by your side, to support you, to grow with you, and to love you endlessly.  
+      You are my sunshine, my soulmate, my everything.<br><br>
       Forever yours,<br>
       <strong>Youssef M. Krashed 💘</strong>
     </p>
   </div>
-
-  <!-- Fatma's Picture -->
-  <div style="margin-top: 30px; text-align: center;">
-    <img src="fatma.jpg" alt="My beautiful Fatma 💖"
-      style="width: 280px; border-radius: 16px; box-shadow: 0 0 15px #ff99cc;
-             transition: transform 0.3s ease;"
-      onmouseover="this.style.transform='scale(1.05)'"
-      onmouseout="this.style.transform='scale(1)'"
-    />
-    <p style="margin-top: 10px; font-style: italic; color: #e75480;">
-      This is the smile I’d choose in every lifetime. 💕
-    </p>
-  </div>
 </div>
 
+<!-- Floating hearts script -->
 <script>
   function unlock() {
     const p = document.getElementById("pass").value;
@@ -117,6 +164,7 @@
   }
 </script>
 
+<!-- Background music -->
 <audio autoplay loop>
   <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mp3">
 </audio>
